@@ -1,0 +1,15 @@
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\bin\Debug\net10.0\weather-cli.exe
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\bin\Debug\net10.0\weather-cli.deps.json
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\bin\Debug\net10.0\weather-cli.runtimeconfig.json
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\bin\Debug\net10.0\weather-cli.dll
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\bin\Debug\net10.0\weather-cli.pdb
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.sourcelink.json
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.dll
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\refint\weather-cli.dll
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.pdb
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.genruntimeconfig.cache
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\ref\weather-cli.dll
