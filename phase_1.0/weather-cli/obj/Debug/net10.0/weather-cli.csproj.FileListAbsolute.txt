@@ -13,3 +13,6 @@ C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\ref
 C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.pdb
 C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\ref\weather-cli.dll
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\bin\Debug\net10.0\Newtonsoft.Json.dll
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-cli.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\camus_progra\phase_1.0\weather-cli\obj\Debug\net10.0\weather-.49C5F976.Up2Date

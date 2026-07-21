@@ -1,0 +1,53 @@
+{
+  "San Jose": [
+    {
+      "Date": "2026-07-01",
+      "Condition": "Sunny",
+      "TempC": 31.0
+    },
+    {
+      "Date": "2026-07-02",
+      "Condition": "Rainy",
+      "TempC": 25.0
+    },
+    {
+      "Date": "2026-07-03",
+      "Condition": "Cloudy",
+      "TempC": 28.0
+    }
+  ],
+  "Cartago": [
+    {
+      "Date": "2026-07-01",
+      "Condition": "Cloudy",
+      "TempC": 22.0
+    },
+    {
+      "Date": "2026-07-02",
+      "Condition": "Rainy",
+      "TempC": 20.0
+    },
+    {
+      "Date": "2026-07-03",
+      "Condition": "Rainy",
+      "TempC": 19.0
+    }
+  ],
+  "Heredia": [
+    {
+      "Date": "2026-07-01",
+      "Condition": "Sunny",
+      "TempC": 29.0
+    },
+    {
+      "Date": "2026-07-02",
+      "Condition": "Windy",
+      "TempC": 27.0
+    },
+    {
+      "Date": "2026-07-03",
+      "Condition": "Cloudy",
+      "TempC": 26.0
+    }
+  ]
+}

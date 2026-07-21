@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "lQl6oY22GtA=",
+  "dgSpecHash": "Ej6lR+NQzEc=",
   "success": true,
   "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\camus_progra\\phase_1.0\\weather-cli\\weather-cli.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Lenovo\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512"
+  ],
   "logs": []
 }
