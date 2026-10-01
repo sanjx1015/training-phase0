@@ -1,0 +1,165 @@
+# Camus Labs: Terraform Cloud y GitHub
+
+## Meta de esta fase
+
+Aprender a conectar GitHub con Terraform Cloud y a crear, paso a paso, infraestructura administrada con Terraform. Al terminar tendrás dos repositorios para código Terraform, dos workspaces conectados a GitHub y un repositorio plantilla creado mediante Terraform.
+
+Esta es una guía de trabajo, no una implementación. En cada etapa investiga, escribe tu propia configuración y revisa el plan antes de aplicar cambios.
+
+## Convenciones de nombres
+
+Antes de crear recursos, completa la hoja de registro que aparece abajo. Puedes rellenarla directamente en este README mientras haces el laboratorio, o copiarla a tus apuntes personales. Si el README se sube a un repositorio público, usa nombres de ejemplo o elimina tus respuestas antes de publicarlo. Estos nombres no son credenciales, pero pueden identificar tus cuentas y recursos.
+
+No asumas que el nombre visible de una organización y su identificador técnico son iguales. Para cada servicio, copia exactamente el nombre o identificador que muestra su interfaz.
+
+| Concepto | Ejemplo para el laboratorio |
+| --- | --- |
+| Nombre visible | `Camus Labs` |
+| Organización/cuenta de GitHub | `camus-labs` |
+| Slug para nombrar recursos | `camus` |
+| Repositorio de administración de Terraform Cloud | `camus-terraform-tf` |
+| Repositorio que administrará GitHub | `camus-github-tf` |
+| Repositorio plantilla que se creará | `camus-template-base` |
+| Workspace inicial | `camus-terraform` |
+
+### Hoja de registro: completa antes de continuar
+
+Escribe una respuesta en la columna **Mi valor**. Los ejemplos son sugerencias; puedes elegir otros nombres, pero después debes usar siempre los mismos.
+
+| Dato que debes registrar | Mi valor | Dónde encontrarlo o decidirlo | Se usa en |
+| --- | --- | --- | --- |
+| Usuario o cuenta personal de GitHub | sanjx1015 | Tu perfil de GitHub; no es el nombre de la organización | Referencia para identificar quién administra la organización |
+| Organización de GitHub (nombre visible) | Camus Labs | Página de la organización en GitHub, por ejemplo `Camus Labs` | Propietario de los repositorios |
+| Organización de GitHub (slug/identificador) | camus-labs-organization | URL de la organización o campo de nombre en sus ajustes, por ejemplo `camus-labs` | URL y configuración del provider de GitHub |
+| Organización de Terraform Cloud (nombre/slug exacto) | camus-labs-terraform | Selector de organización y URL de Terraform Cloud | Workspace inicial y provider TFE |
+| Slug corto para este laboratorio | __________ | Lo eliges tú; por ejemplo `camus`. Usa minúsculas, números o guiones | Prefijo para mantener consistentes los nombres |
+| Repositorio Terraform que administrará Terraform Cloud | camus-terraform-tf | Lo eliges tú; ejemplo `camus-terraform-tf` | Conexión VCS del workspace inicial |
+| Repositorio Terraform que administrará GitHub | __________ | Lo eliges tú; ejemplo `camus-github-tf` | Conexión VCS del segundo workspace |
+| Nombre del proyecto nuevo en Terraform Cloud | __________ | Lo eliges tú; ejemplo `camus-github-project` | Código Terraform de la etapa 5 |
+| Nombre del workspace inicial | __________ | Lo eliges tú; ejemplo `camus-terraform` | Creación manual en la etapa 4 |
+| Nombre del segundo workspace | __________ | Lo eliges tú; ejemplo `camus-github` | Código Terraform de la etapa 5 |
+| Nombre del repositorio plantilla que se creará | __________ | Lo eliges tú; ejemplo `camus-template-base` | Código Terraform de la etapa 6 |
+| Rama principal de ambos repositorios | __________ | Al crear cada repositorio; usa `main` para esta guía | Conexiones VCS y planes de Pull Request |
+
+### Cómo rellenar la hoja
+
+1. Abre GitHub y anota tu usuario personal. Después crea o elige una organización para el laboratorio. Anota por separado el nombre que ves en pantalla y el slug que aparece en la URL; por ejemplo, la URL `github.com/camus-labs` indica el slug `camus-labs`.
+2. Abre Terraform Cloud y crea o elige una organización. Copia su nombre o slug exactamente como aparece en el selector y en la URL. No uses aquí el nombre de la organización de GitHub, salvo que coincidan de casualidad.
+3. Elige un slug corto, como `camus`. Úsalo como prefijo para los nombres que tú inventes; el prefijo no reemplaza los identificadores reales de las organizaciones.
+4. Completa los nombres de los dos repositorios, el proyecto, los dos workspaces y el repositorio plantilla. Comprueba que los nombres de repositorio que vas a crear no estén ya ocupados dentro de la organización de GitHub.
+5. Mantén `main` como rama principal en los dos repositorios. Si GitHub muestra otra rama al crearlos, cámbiala o ajusta la hoja antes de configurar Terraform Cloud.
+6. Conserva esta hoja a mano durante las etapas 2 a 6. En la etapa 2 crearás los repositorios; en la 4, el workspace inicial; en la 5, el proyecto y segundo workspace; en la 6, el repositorio plantilla.
+
+**Importante:** esta hoja es para planificar. No tienes que copiar todos estos valores a un archivo `.tfvars`. Más adelante, cuando escribas la configuración, decidirás cuáles nombres se convierten en argumentos o variables de Terraform. Los tokens, contraseñas y otros secretos nunca se anotan aquí ni se suben al repositorio; se configuran como variables sensibles en el workspace correspondiente.
+
+### Dónde se crea cada nombre del ejemplo
+
+La tabla de arriba no crea nada: solo guarda tus decisiones. Estos son los lugares donde sí crearás o usarás cada nombre:
+
+| Nombre de ejemplo | Qué hacer exactamente | Dónde hacerlo |
+| --- | --- | --- |
+| `Camus Labs` | Es el nombre visible de la organización de GitHub. Escríbelo al crear la organización. | GitHub: menú `+` de la esquina superior derecha > `New organization`. |
+| `camus-labs` | Es el slug/usuario de esa organización, no otro recurso. Elígelo durante la creación si GitHub lo permite; confirma el resultado en la URL de la organización. | GitHub, en el mismo formulario de creación. La dirección quedará como `github.com/camus-labs`. |
+| Organización de Terraform Cloud | Crea una organización nueva o selecciona una que ya tengas. Copia su nombre/slug aparte; no es automáticamente `camus-labs`. | Terraform Cloud: crea o selecciona la organización desde el selector de organizaciones. |
+| `camus` | Es solo un prefijo que tú eliges para nombrar recursos. No se crea ni se registra en ninguna página. | Solo en esta hoja de planificación y como parte de los nombres que decidas usar. |
+| `camus-terraform-tf` | Crea un repositorio vacío con este nombre. Selecciona `camus-labs` como propietario y usa `main` como rama. | GitHub: abre la organización > `Repositories` > `New`. |
+| `camus-github-tf` | Crea un segundo repositorio vacío, también dentro de `camus-labs`, con rama `main`. | GitHub: organización > `Repositories` > `New`. |
+| `camus-terraform` | Crea el workspace inicial y conéctalo al repositorio `camus-terraform-tf`. | Terraform Cloud: `Workspaces` > `Create a workspace` > flujo de repositorio VCS; elige GitHub, el repositorio y la rama `main`. |
+| Nombre del proyecto (ejemplo: `camus-github-project`) | No lo crees manualmente para esta práctica. Escríbelo en la configuración Terraform del repositorio `camus-terraform-tf`; Terraform lo creará al ejecutar un apply aprobado. | Archivo `.tf` de `camus-terraform-tf`, recurso de proyecto del provider TFE. |
+| Segundo workspace (ejemplo: `camus-github`) | Tampoco lo crees manualmente. Decláralo en Terraform junto con la conexión VCS a `camus-github-tf`; se creará al ejecutar un apply aprobado. | Archivo `.tf` de `camus-terraform-tf`, recurso de workspace del provider TFE. |
+| `camus-template-base` | No lo crees ahora desde GitHub. Decláralo en el código Terraform que se ejecutará en el segundo workspace; Terraform lo creará más adelante. | Archivo `.tf` de `camus-github-tf`, recurso de repositorio del provider GitHub. |
+
+**Orden práctico:** primero crea las dos organizaciones (GitHub y Terraform Cloud); después crea en GitHub los dos repositorios Terraform; luego conecta `camus-terraform` desde la interfaz de Terraform Cloud. Solo cuando eso funcione, escribe el código que creará el proyecto y el segundo workspace. Por último, ese segundo workspace ejecutará el código que creará `camus-template-base`.
+
+## Etapas
+
+### 1. Preparar las cuentas y organizaciones
+
+**Objetivo:** tener disponibles las organizaciones de GitHub y Terraform Cloud.
+
+**Trabajo:** crea una cuenta y una organización en Terraform Cloud. Crea la organización `camus-labs` en GitHub. Registra los nombres/identificadores que muestran ambos servicios.
+
+**Aprende:** diferencia entre organización, usuario, repositorio, proyecto y workspace. Identifica qué permisos necesitará Terraform Cloud.
+
+**Verifica:** puedes acceder a ambas organizaciones y sabes qué identificador usarás para referirte a cada una.
+
+### 2. Crear los repositorios de código
+
+**Objetivo:** separar el código que administra Terraform Cloud del código que administra GitHub.
+
+**Trabajo:** crea los repositorios `camus-terraform-tf` y `camus-github-tf` en la organización correcta. Usa `main` como rama predeterminada; por ahora basta con inicializarlos con un README.
+
+**Aprende:** qué es una configuración raíz de Terraform y por qué cada repositorio tendrá una responsabilidad distinta.
+
+**Verifica:** ambos repositorios existen, tienen una rama `main` y son accesibles para la integración que usarás.
+
+### 3. Conectar GitHub y Terraform Cloud
+
+**Objetivo:** permitir que Terraform Cloud lea los repositorios y reciba eventos de cambios.
+
+**Trabajo:** configura la conexión de control de versiones (VCS) de GitHub en Terraform Cloud y autoriza el acceso necesario.
+
+**Aprende:** qué autoriza la conexión VCS, cómo se diferencia de un token personal y por qué las credenciales no deben guardarse en Git.
+
+**Verifica:** al crear un workspace VCS, Terraform Cloud puede mostrar los repositorios de la organización.
+
+### 4. Crear el workspace inicial desde la interfaz
+
+**Objetivo:** conectar la primera configuración Terraform con Terraform Cloud.
+
+**Trabajo:** crea el workspace VCS `camus-terraform`, enlázalo con `camus-terraform-tf` y selecciona la rama `main`.
+
+**Aprende:** diferencia entre workspace VCS y workspace de CLI, cómo se elige el directorio de trabajo y qué eventos inician un run.
+
+**Verifica:** el workspace muestra el repositorio y rama correctos. Revisa qué comportamiento tendrá al abrir un Pull Request y al integrar cambios en `main`.
+
+### 5. Codificar el proyecto y el segundo workspace
+
+**Objetivo:** desde `camus-terraform-tf`, administrar con Terraform un proyecto y un workspace de Terraform Cloud conectado a `camus-github-tf`.
+
+**Trabajo:** investiga el provider de Terraform Cloud (TFE), identifica los recursos necesarios y escribe la configuración que crea ambos recursos y establece la conexión VCS.
+
+**Aprende:** providers, recursos, variables de entrada, referencias entre recursos y autenticación del provider. Usa la documentación oficial para conocer argumentos requeridos y opcionales.
+
+**Antes de aplicar:** explica qué cambios esperas ver en el plan y qué relación existe entre el proyecto, el workspace, el repositorio y la rama.
+
+**Verifica:** el plan propone únicamente los recursos esperados. Después de aplicar, confirma en Terraform Cloud que el nuevo workspace quedó conectado al repositorio y rama correctos.
+
+### 6. Codificar el repositorio plantilla
+
+**Objetivo:** desde `camus-github-tf`, crear el repositorio `camus-template-base` mediante Terraform.
+
+**Trabajo:** investiga el provider de GitHub, identifica el recurso de repositorio y escribe la configuración para crearlo en la organización elegida. Configura sus credenciales como variables sensibles del workspace, no como valores escritos en el código.
+
+**Aprende:** configuración de providers, permisos mínimos de tokens, variables sensibles y atributos de un repositorio (propietario, nombre y visibilidad).
+
+**Antes de aplicar:** verifica en el plan el nombre, propietario y visibilidad. No apliques si el plan muestra recursos inesperados.
+
+**Verifica:** el segundo workspace ejecuta el código de `camus-github-tf` y, después de aprobar el apply, el repositorio aparece en GitHub.
+
+### 7. Probar Pull Requests y aprobación manual
+
+**Objetivo:** en ambos workspaces, obtener planes automáticos para Pull Requests hacia `main` y requerir aprobación manual del apply tras integrar cambios.
+
+**Trabajo:** configura los workspaces y la conexión VCS para ese ciclo. Investiga qué comportamiento se controla desde Terraform y qué ajuste, si alguno, se hace en la interfaz.
+
+**Aprende:** planes especulativos, auto-apply, runs, aprobación de apply y permisos VCS para leer Pull Requests.
+
+**Verifica el ciclo completo:**
+
+1. Crea una rama y un cambio pequeño en el README de uno de los repositorios.
+2. Abre un Pull Request a `main` y comprueba que aparece un plan, pero no un apply.
+3. Integra el Pull Request y comprueba que se inicia un run normal.
+4. Revisa el plan y confirma que el apply espera aprobación manual antes de ejecutarse.
+
+## Cierre de la fase
+
+Explica con tus propias palabras:
+
+- Qué administra cada repositorio y qué workspace ejecuta cada configuración.
+- Cómo se relacionan el proyecto y el workspace creados mediante Terraform.
+- Qué credenciales usa cada provider y dónde se guardan.
+- En qué se diferencia un plan de Pull Request de un run después del merge.
+- Cómo reconocerías y detendrías un plan que propone cambios inesperados.
+
+Usa la documentación oficial de Terraform Cloud, el provider TFE y el provider GitHub como referencia. No subas tokens ni archivos locales que contengan valores sensibles.
